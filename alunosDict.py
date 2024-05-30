@@ -6,7 +6,6 @@ linhas = id_alunos.shape[0]
 dictId = {}
 
 for l in range(linhas):
-    dictId[id_alunos.iloc[l,0]] = id_alunos.iloc[l,1]
+    dictId[str(id_alunos.iloc[l,0])] = id_alunos.iloc[l,1]
 
-for items in dictId:
-    print(f'{items}:{dictId[items]}')
+#print(dictId)

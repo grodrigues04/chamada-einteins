@@ -1,0 +1,55 @@
+ATRASO | ALUNO_ID | FALTA | CRIADO_EM | PRIMEIRA_METADE
+-----------------------------------------------
+
+primeira_metade: Coluna referente ao período da chamada. 
+Se Verdadeiro: primeiro turno das aulas 18h - 20h. 
+Se False: Segundo turno de aulas 20h - 22h.
+
+
+Primeiro bloco de aula 17:45 até as 20h. para anotar a chamada  
+Todos que anotarem a chamada nesse periodo vão receber:
+Faltou=>False, primeira_metada=> True
+
+-> No horario 20:01 - O sistema atribui falta a todos que não realizaram chamada no primeiro bloco.
+
+Então fica:
+Faltou=>True, primeira_metade=> True
+
+Entre 20h e 20:15 a chamada não é feita.
+
+Chamada é feita entre 20:15 até 22:00
+
+-> No horario 22:01 - O sistema atribui falta a todos que não realizaram chamada no segundo bloco.
+
+===========================================================================================================================================
+
+Colunas:
+print(prod.iloc[0,0]) => coluna "atraso"
+
+print(prod.iloc[0,1]) => coluna "aluno_id"
+
+print(prod.iloc[0,2]) => coluna "falta"
+
+print(prod.iloc[0,3]) => coluna "criado_em"
+
+print(prod.iloc[0,4]) => coluna "primeira_metade"
+
+Data:
+data = prod.iloc[y,3]
+
+mes = data[5:7:1]
+dia = data[8:11]
+
+Em um dia: 236 registros (118 para cada bloco)
+
+Em uma semana: 1180 registros
+
+'2/4 - P' -> Presente apenas no primeiro bloco
+'2/4 - S' -> Presente apenas no segundo bloco
+
+
+t - t ok
+t - f
+f - t 
+f - f ok
+
