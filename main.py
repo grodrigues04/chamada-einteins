@@ -127,3 +127,11 @@ df.to_csv('Chamada Geral.csv')
 print('Planilha criada com sucesso!')
 with open('data.json', 'w') as json_file:
     json.dump(data, json_file, indent=4, ensure_ascii=False)
+
+'''
+FAZER UM LOOP APENAS NAS DATAS
+E PARA CADA DATA DIFERENTE, CRIAR UMA CHAVE NO DICIONÁRIO
+DPS ITERAR SOBRE OS ALUNOS DE UMA VEZ SÓ :0)
+
+
+'''
