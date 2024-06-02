@@ -1,6 +1,6 @@
 import pandas as pd
 from time import sleep
-palavra = "gustavo"
+
 from alunosDict import dictId
 import json
 id_alunos = pd.read_csv('./assets/ID Alunos - Página1.csv')
