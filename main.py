@@ -17,6 +17,12 @@ filtro = {
     "VERDADEIRO":"TRUE",
     "FALSO":"FALSE"
 }
+
+
+criador_dict = {
+    "TRUE":"primeira_metade",
+    "FALSE":"segunda_metade"
+}
 def coletarDatas():
     for dataLinha in range(1,prod.shape[0],50):
         data = prod.iloc[dataLinha,3]
@@ -30,7 +36,7 @@ diasTestador = []
 presençaDf = presença.copy()
 def coletarPresençaAlunos():
     for linha in range(1,prod.shape[0]):
-        print(linha)
+        #print(linha)
         criado_em = prod.iloc[linha,3]
         dia = criado_em[8:10]
         mes = criado_em[5:7:1]
@@ -43,24 +49,13 @@ def coletarPresençaAlunos():
         diasTestador.append(f'{dia}/{mes}')
         if alunoNome not in presença[f'{dia}/{mes}']: #Então adiciona o aluno
             dia_atual[alunoNome] = {} #criando o dic do aluno
-            alunoDict = dia_atual[alunoNome] #pegando apenas o dict do aluno
+            alunoDict = dia_atual[alunoNome]
             alunoDict['id'] = alunoId
-            if filtro[prod.iloc[linha,4]] == "TRUE":
-                alunoDict['primeira_metade'] = f'{filtro[prod.iloc[linha,2]]}'
-            else:
-                alunoDict['segunda_metade'] = f'{filtro[prod.iloc[linha,2]]} do primeiro if'
         else:
             alunoDict = dia_atual[alunoNome] #pegando apenas o dict do aluno
-            print(linha)
-            print('essa condição é: ', 'primeira_metade' in alunoDict)
-            print(alunoDict)
-            #sleep(0.5)
-            if 'primeira_metade' in alunoDict:
-                alunoDict['segunda_metade'] = f'{filtro[prod.iloc[linha,2]]}'
-            else:
-                alunoDict['primeira_metade'] = f'{filtro[prod.iloc[linha,2]]} primeira metade do segundo'
-            print('novo:')
-            print(alunoDict)
+            valorAtualPrimeira_metade = filtro[prod.iloc[linha,4]]
+            chave = criador_dict[valorAtualPrimeira_metade]
+            alunoDict[chave] = filtro[prod.iloc[linha,2]]
 coletarPresençaAlunos()
 
     
@@ -73,14 +68,11 @@ coletarPresençaAlunos()
 #                 #wadasd
 
 
+presença_json = json.dumps(presença, indent=4, default=str)
 
+# Imprimir o dicionário organizado
+print(presença_json)
 
-
-with open('presençaDOIS.json', 'w') as json_file:
-    json.dump(presença, json_file, indent=4, ensure_ascii=False)
-
-with open('aaaaaa.json', 'w') as json_file:
-    json.dump(diasTestador, json_file, indent=4, ensure_ascii=False)
 
 print('Arquivo JSON criado com sucesso!')
 
