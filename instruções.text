@@ -48,8 +48,7 @@ Em uma semana: 1180 registros
 '2/4 - S' -> Presente apenas no segundo bloco
 
 
-t - t ok
-t - f
-f - t 
-f - f ok
 
+primeira_metade_T = "primeira metade é True
+primeira_metade_F = "primeira metade é False
+primeira_metade_T_falta = valor da falta na primeira metade

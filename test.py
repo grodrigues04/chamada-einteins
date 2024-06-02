@@ -35,3 +35,11 @@ presença ={
 
 df = pd.DataFrame(presença)
 df.to_csv('testePresençaUM.csv')
+
+'''
+    Fazer um dicionario, que as chaves são todas as datas
+    e para cada data, vai entrar uma chave que o nome é o aluno
+
+    
+
+'''

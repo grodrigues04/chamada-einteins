@@ -1,25 +1,15 @@
 import pandas as pd
+from time import sleep
 palavra = "gustavo"
 from alunosDict import dictId
+import json
 id_alunos = pd.read_csv('./assets/ID Alunos - Página1.csv')
 prod = pd.read_csv('./assets/Planilha prod - Raw (3).csv')
 presença = {}
 presençaPorcentagem = {}
-horario = {
-    17:"",
-    18:"",
-    19:"",
-    20:"",
-    21:"",
-    22:""
-}
 totalDeDias = ((prod.shape[0])//236) + 1
 
 #para cada dia de aula (23 no total), vamos percorrer 236 linhas
-linhaInico = 1
-linhaFinal = 119
-linhaDatas = 1
-
 totalDePresenças = (((prod.shape[0])//236)*4)-20
 filtro = {
     "TRUE":"TRUE",
@@ -27,52 +17,92 @@ filtro = {
     "VERDADEIRO":"TRUE",
     "FALSO":"FALSE"
 }
-for c in range(totalDeDias):
-    dia_coleta_prod = prod.iloc[linhaDatas,3]
-    diaDict = f'{dia_coleta_prod[8:10]}/{dia_coleta_prod[5:7]}'
-    presença[diaDict] = {}
-    for c in range(linhaInico,linhaFinal):
-        PrimeiroBlocoFalta = prod.iloc[c,2]
-        PrimeiroBloco = prod.iloc[c,4]
-        SegundoBlocoFalta = prod.iloc[c+180,2]
-        SegundoBloco = prod.iloc[c+180,4]
-        aluno = dictId[prod.iloc[c,1]]
-        #FILTRANDO
-        PrimeiroBlocoFalta = filtro[PrimeiroBlocoFalta]
-        SegundoBlocoFalta = filtro[SegundoBlocoFalta]
-        if PrimeiroBlocoFalta== "TRUE" and SegundoBlocoFalta=="TRUE":
-            status = 'Ausente'
-            total = 0
-        elif PrimeiroBlocoFalta=="FALSE" and SegundoBlocoFalta=="FALSE":
-            status = '4/4'
-            total = 4
-        elif PrimeiroBlocoFalta=="FALSE" and SegundoBlocoFalta=="TRUE":
-            status = '2/4 - P'
-            total = 2
-        elif PrimeiroBlocoFalta=="TRUE" and SegundoBlocoFalta=="FALSE":
-            status = '2/4 - S'
-            total = 2
-        presença[diaDict][aluno] = status
-        if aluno not in presençaPorcentagem:
-            presençaPorcentagem[aluno] = total
+def coletarDatas():
+    for dataLinha in range(1,prod.shape[0],50):
+        data = prod.iloc[dataLinha,3]
+        dia = data[8:10]
+        mes = data[5:7:1]
+        if dia not in presença:
+            presença[f'{dia}/{mes}'] = {}
+    #print(presença)
+coletarDatas()
+diasTestador = []
+presençaDf = presença.copy()
+def coletarPresençaAlunos():
+    for linha in range(1,prod.shape[0]):
+        print(linha)
+        criado_em = prod.iloc[linha,3]
+        dia = criado_em[8:10]
+        mes = criado_em[5:7:1]
+        #print(dia)
+        alunoId = prod.iloc[linha,1]
+        alunoNome = dictId[alunoId]
+        dia_atual = presença[f'{dia}/{mes}']
+        #print(filtro[prod.iloc[linha, 4]])
+        #print(f'{dia}/{mes}')
+        diasTestador.append(f'{dia}/{mes}')
+        if alunoNome not in presença[f'{dia}/{mes}']: #Então adiciona o aluno
+            dia_atual[alunoNome] = {} #criando o dic do aluno
+            alunoDict = dia_atual[alunoNome] #pegando apenas o dict do aluno
+            alunoDict['id'] = alunoId
+            if filtro[prod.iloc[linha,4]] == "TRUE":
+                alunoDict['primeira_metade'] = f'{filtro[prod.iloc[linha,2]]}'
+            else:
+                alunoDict['segunda_metade'] = f'{filtro[prod.iloc[linha,2]]} do primeiro if'
         else:
-            pontos = presençaPorcentagem[aluno] + total
-            presençaPorcentagem[aluno] = pontos
-        #print(presençaPorcentagem)
+            alunoDict = dia_atual[alunoNome] #pegando apenas o dict do aluno
+            print(linha)
+            print('essa condição é: ', 'primeira_metade' in alunoDict)
+            print(alunoDict)
+            #sleep(0.5)
+            if 'primeira_metade' in alunoDict:
+                alunoDict['segunda_metade'] = f'{filtro[prod.iloc[linha,2]]}'
+            else:
+                alunoDict['primeira_metade'] = f'{filtro[prod.iloc[linha,2]]} primeira metade do segundo'
+            print('novo:')
+            print(alunoDict)
+coletarPresençaAlunos()
 
-    linhaInico = linhaFinal
-    linhaFinal = linhaFinal + 119
-    linhaDatas += 236
+    
+# def determinarFrequencia():
+#     for item in presença: #chave data
+#         print(item)
+#         alunos = presença[item]
+#         for aluno in alunos:
+#             if aluno['primeira_metade_T_falta'] == "TRUE":
+#                 #wadasd
 
-porcentagem = {key: f"{value/totalDePresenças * 100:.1f}%" for key, value in presençaPorcentagem.items()}
 
-presença['Porcentagem'] = porcentagem
-presença['Total: 68'] = presençaPorcentagem
+
+
+
+with open('presençaDOIS.json', 'w') as json_file:
+    json.dump(presença, json_file, indent=4, ensure_ascii=False)
+
+with open('aaaaaa.json', 'w') as json_file:
+    json.dump(diasTestador, json_file, indent=4, ensure_ascii=False)
+
+print('Arquivo JSON criado com sucesso!')
+
+
+#print(presença)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 df = pd.DataFrame(presença)
-#df.to_csv('Chamada Geral.csv')
+df.to_csv('Chamada Geral ultima.csv')
 print('Planilha criada com sucesso!')
-
-
-a = presença['19/04']
-for aluno in a:
-    print(aluno,':',a[aluno])
