@@ -33,5 +33,20 @@ presença ={
 }
 
 
+
+
 df = pd.DataFrame(presença)
 df.to_csv('testePresençaUM.csv')
+
+
+data = {} 
+atual = {
+    "gustavo":{
+        "linha": "123",
+        "primeira_metade_false":"120",
+        "primeira_metade_true":"120",
+    }
+}
+
+data["19/04"] = atual
+print(data)
