@@ -28,9 +28,14 @@ def coletarDatas():
         data = prod.iloc[dataLinha,3]
         dia = data[8:10]
         mes = data[5:7:1]
+        # BUG: dia sempre estara em presença
+        # porque o que é adicionado é o dia/mes
+        # no final da certo mas nao é correto
+        # corr -> if f'{dia}/{mes}' not in presença:
         if dia not in presença:
+            # print(dataLinha, f'{dia}/{mes}')
             presença[f'{dia}/{mes}'] = {}
-    #print(presença)
+    # print(presença)
 coletarDatas()
 diasTestador = []
 presençaDf = presença.copy()
@@ -68,10 +73,11 @@ coletarPresençaAlunos()
 #                 #wadasd
 
 
-presença_json = json.dumps(presença, indent=4, default=str)
+with open('presença.json', 'w') as f:
+    json.dump(presença, f, indent=4, default=str)
 
 # Imprimir o dicionário organizado
-print(presença_json)
+# print(presença_json)
 
 
 print('Arquivo JSON criado com sucesso!')
