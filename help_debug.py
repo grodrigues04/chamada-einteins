@@ -25,10 +25,10 @@ data = data[
     (
         (data['aluno_id'] == "120") | ## ou
         (data['aluno_id'] == "121") |
-        (data['aluno_id'] == "122") 
+        (data['aluno_id'] == "168") 
     )
     & ## e
-    (data['criado_em'] < pd.to_datetime('2024-04-13'))
+    (data['criado_em'] < pd.to_datetime('2024-05-07'))
     ]
 # salva o dataframe
 data.to_csv("test_df.csv", index=False)
