@@ -31,7 +31,7 @@ data = data[
     (data['criado_em'] < pd.to_datetime('2024-05-07'))
     ]
 # salva o dataframe
-data.to_csv("test_df.csv", index=False)
+data.to_csv("./assets-generate/test_df.csv", index=False)
 
 
 

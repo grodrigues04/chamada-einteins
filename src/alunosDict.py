@@ -8,4 +8,4 @@ dictId = {}
 for l in range(linhas):
     dictId[str(id_alunos.iloc[l,0])] = id_alunos.iloc[l,1]
 
-#print(dictId)
+print(dictId)
