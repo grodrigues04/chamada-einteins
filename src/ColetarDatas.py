@@ -7,4 +7,3 @@ def coletarDatas():
         if dia not in presença:
             presença[f'{dia}/{mes}'] = {}
             DataFrameOfPresença[f'{dia}/{mes}'] = {}
-   # print(presença)

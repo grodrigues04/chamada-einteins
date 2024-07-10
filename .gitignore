@@ -1,4 +1,6 @@
-instructions.txt
+instruções.text
+
+
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
 
@@ -8,6 +10,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+assetsGenerate
 # C extensions
 *.so
 
