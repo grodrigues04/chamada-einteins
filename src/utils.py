@@ -43,7 +43,7 @@ totaisDeDiaPorMes = {
     'Abril': -5, #as semaninhas são desconsideradas
     'Maio': -3,
     'Junho': 0,
-    'Julho': 0,
+    'Julho': -15,
     'Agosto': 0,
     'Setembro': 0,
     'Outubro': 0,
