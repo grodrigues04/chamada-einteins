@@ -1,0 +1,20 @@
+No arquivo "utils" desconte a quantidade de dias que quer desconsiderar no dicionario "totaisDeDiaPorMes"
+Some todos os dias que foram descontados e multlique por dois. O valor resultando deve ser a subtração da variavel "totalDePresenças"
+exemplo:
+
+totaisDeDiaPorMes = {
+    'Janeiro': 0,
+    'Fevereiro': 0,
+    'Março': 0,
+    'Abril': -5, #as semaninhas são desconsideradas
+    'Maio': -3,
+    'Junho': 0,
+    'Julho': -13,
+    'Agosto': -2,
+    'Setembro': 0,
+    'Outubro': 0,
+    'Novembro': 0,
+    'Dezembro': 0
+}
+
+totalDePresenças = (((prod.shape[0])//236)*2)-46
