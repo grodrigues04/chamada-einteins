@@ -6,7 +6,7 @@ presençaPorcentagem = {}
 id_alunos = pd.read_csv('./assets/ID Alunos - Página1.csv')
 prod = pd.read_csv('./assets/planilha_prod.csv')
 
-totalDePresenças = (((prod.shape[0])//236)*2)-16 #-16 desconsidera dias que NENHUM estudante foi coletado
+totalDePresenças = (((prod.shape[0])//236)*2)-31 #16 - desconsidera dias que NENHUM estudante foi coletado. 15 -desconsidera as férias (16+15=31)
 totalDeDias = ((prod.shape[0])//236) + 1
 
 filtro = {
