@@ -6,7 +6,7 @@ presençaPorcentagem = {}
 id_alunos = pd.read_csv('./assets/ID Alunos - Página1.csv')
 prod = pd.read_csv('./assets/planilha_prod.csv')
 
-totalDePresenças = (((prod.shape[0])//236)*2)-16 #-16 desconsidera dias que NENHUM estudante foi coletado
+totalDePresenças = (((prod.shape[0])//236)*2)-46
 totalDeDias = ((prod.shape[0])//236) + 1
 
 filtro = {
@@ -43,8 +43,8 @@ totaisDeDiaPorMes = {
     'Abril': -5, #as semaninhas são desconsideradas
     'Maio': -3,
     'Junho': 0,
-    'Julho': 0,
-    'Agosto': 0,
+    'Julho': -13,
+    'Agosto': -2,
     'Setembro': 0,
     'Outubro': 0,
     'Novembro': 0,
