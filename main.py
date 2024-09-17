@@ -5,6 +5,7 @@ from src.coletarPresençaAlunos import coletarPresençaAlunos
 from src.determinarFrequencia import determinarFrequencia
 from src.utils import presença, DataFrameOfPresença, presençaPorcentagem, totalDePresenças, presençaMensal
 from src.presençaMensal import mensal
+from src.gerarRelatorioFaltasPorTurno import gerarRelatorioFaltasPorTurno
 
 
 print('Coletando as Datas...')
@@ -42,6 +43,12 @@ print('Arquivos criados com sucesso na pasta AssetsGenerate:')
 print("presença.json - apenas um json do dict presença")
 print("jsonParaPresencaMensal.json - dict utilizado para calcular a presença mensal")
 print("DataFrameOfPresença - Dict utilizado para gerar a planilha")
+print()
+
+
+print('Gerando relatório mensal de faltas por turno...')
+gerarRelatorioFaltasPorTurno()
+print("Planilha de relatório mensal de falta/turno criada com sucesso!")
 print()
 
 mensal()
